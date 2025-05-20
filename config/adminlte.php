@@ -301,6 +301,12 @@ return [
     'menu' => [
         // Navbar items:
         [
+            'text' => 'Configuracion',
+            'url' => 'admin/configuracion',
+            'icon' => 'fas fa-fw fa-cog',
+            'classes' => 'bg-blue text-white'
+        ],
+        [
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
