@@ -16,4 +16,18 @@ class ConfiguracionController extends Controller
         $configuracion = Configuracion::first();
         return view("admin.configuracion.index", compact("configuracion", "divisas"));
     }
+    public function store(Request $request)
+    {
+        //$datos = request()->all();
+        //return response()->json($datos);
+        $request->validate([
+            "nombre"=>"required",
+            "descripcion"=>"required",
+            "direccion"=>"required",
+            "telefono"=>"required",
+            "divisa"=>"required",
+            "correo_electronico"=>"required | email",
+            "logo"=>"image|mimes:jpeg,png,jpg",
+        ]);
+    }
 }

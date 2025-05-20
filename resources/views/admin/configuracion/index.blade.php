@@ -17,7 +17,9 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="">
+                <form action="{{url('/admin/configuracion/create')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -113,7 +115,7 @@
                                                 <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                                             </div>
 
-                                            <select name="" id="" class="form-control" required>
+                                            <select name="divisa" id="divisa" class="form-control" required>
                                                 <option value="">Seleccione una opción</option>
                                                 @foreach ($divisas as $divisa)
                                                 <option value="{{$divisa['symbol']}}" {{ old('divisa', $configuracion->divisa ?? '') == $divisa['symbol'] ? 'selected' : '' }}>
@@ -162,7 +164,16 @@
                                 </div>
                             </div>
 
+                        </div>
 
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <a href="{{url('/admin')}}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Cancelar</a>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                            </div>
                         </div>
                     </div>
                 </form>
