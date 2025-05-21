@@ -29,9 +29,9 @@
                                         <span class="input-group-text"><i class="fas fa-image"></i></span>
                                     </div>
 
-                                    <input type="file" onchange="mostrarImagen(event)" accept="image/*" value="{{old('logo', $configuracion->logo ?? '')}}" name="logo" required>
+                                    <input type="file" onchange="mostrarImagen(event)" accept="image/*" value="{{old('logo', $configuracion->logo ?? '')}}" name="logo">
                                     <br>
-                                    <img id="preview" style="max-width: 300px; margin-top: 10px;">
+                                    <img id="preview" src="{{ isset($configuracion) && $configuracion->logo ? url($configuracion->logo) : '' }}" style="max-width: 300px; margin-top: 10px;">
                                     <script>
                                         const mostrarImagen = e =>
                                             document.getElementById('preview').src = URL.createObjectURL(e.target.files[0]);
@@ -52,7 +52,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-university"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" value="{{old('nombre', $configuracion->nombre ?? '')}}" name="nombre" placeholder="Escribir nombre" required>
+                                            <input type="text" class="form-control" value="{{old('nombre', $configuracion->nombre ?? '')}}" name="nombre" placeholder="Escribir nombre" >
                                         </div>
                                         @error('nombre')
                                         <small style="color: red">{{$message}}</small>
@@ -140,7 +140,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                             </div>
-                                            <input type="email" class="form-control" value="{{old('correo_electronico', $configuracion->email ?? '')}}" name="correo_electronico" placeholder="Escribir email" required>
+                                            <input type="email" class="form-control" value="{{old('correo_electronico', $configuracion->correo_electronico ?? '')}}" name="correo_electronico" placeholder="Escribir email" required>
                                         </div>
                                         @error('correo_electronico')
                                         <small style="color: red">{{$message}}</small>
