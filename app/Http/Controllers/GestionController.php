@@ -23,6 +23,7 @@ class GestionController extends Controller
     public function create()
     {
         //
+        return view("admin.gestiones.create");
     }
 
     /**
@@ -31,6 +32,13 @@ class GestionController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nombre' => 'required|max:255|unique:gestions'
+        ]);
+        $gestion = new Gestion();
+        $gestion->nombre = $request->nombre;
+        $gestion->save();
+        return redirect()->route("admin.gestiones.index")->with('sucess', 'La gestion se ha creado correctamente');
     }
 
     /**
@@ -44,17 +52,26 @@ class GestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Gestion $gestion)
+    public function edit($id)
     {
         //
+        $gestion = Gestion::find($id);
+        return view('admin.gestiones.edit', compact('gestion'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Gestion $gestion)
+    public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'nombre' => 'required|max:255|unique:gestions,nombre,'.$id
+        ]);
+        $gestion = Gestion::find($id);
+        $gestion->nombre = $request->nombre;
+        $gestion->save();
+        return redirect()->route('admin.gestiones.index')->with('success', 'La gestion se ha actualizado correctamente');
     }
 
     /**
