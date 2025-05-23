@@ -17,7 +17,7 @@
         <div class="info-box zoomP">
             <img src="{{url('/img/calendario.gif')}}" width="70px" height="70px" alt="calendario">
             <div class="info-box-content">
-                <span class="info-box-text"><b>Gestiones Educativa</b></span>
+                <span class="info-box-text"><b>Gestiones Educativas</b></span>
 
                 <span class="info-box-number" style="color: #007bff; font-size:20pt">{{$gestion->nombre}}</span>
 

@@ -4,12 +4,18 @@
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\PreloaderHelper')
 
 @php
-    use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session;
 @endphp
 
 @section('adminlte_css')
 @stack('css')
 @yield('css')
+<style type="text/css">
+    .zoomP {
+        border: 1px solid #c0c0c0;
+        box-shadow: #c0c0c0 0px 5px 5px 0px;
+    }
+</style>
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())
