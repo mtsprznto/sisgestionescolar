@@ -52,7 +52,9 @@ class ConfiguracionController extends Controller
                 $configuracion->logo = 'uploads/logos/' . $nombreArchivo;
             }
             $configuracion->save();
-            return redirect()->route('admin.configuracion.index')->with('success', 'Configuracion actualizada correctamente.');
+            return redirect()->route('admin.configuracion.index')
+                ->with('mensaje', 'Configuracion actualizada correctamente.')
+                ->with('icono', 'success');
         } else {
             $configuracion = new Configuracion();
             $configuracion->nombre = $request->nombre;
@@ -72,7 +74,9 @@ class ConfiguracionController extends Controller
                 $configuracion->logo = 'uploads/logos/' . $nombreArchivo;
             }
             $configuracion->save();
-            return redirect()->route('admin.configuracion.index')->with('success', 'Configuracion actualizada correctamente.');
+            return redirect()->route('admin.configuracion.index')
+                ->with('mensaje', 'Configuracion creada correctamente.')
+                ->with('icono', 'success');
         }
     }
 }

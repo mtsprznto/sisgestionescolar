@@ -38,7 +38,9 @@ class GestionController extends Controller
         $gestion = new Gestion();
         $gestion->nombre = $request->nombre;
         $gestion->save();
-        return redirect()->route("admin.gestiones.index")->with('sucess', 'La gestion se ha creado correctamente');
+        return redirect()->route("admin.gestiones.index")
+            ->with('mensaje', 'La gestion se ha creado correctamente')
+            ->with('icono', 'success');
     }
 
     /**
@@ -66,19 +68,26 @@ class GestionController extends Controller
     {
         //
         $request->validate([
-            'nombre' => 'required|max:255|unique:gestions,nombre,'.$id
+            'nombre' => 'required|max:255|unique:gestions,nombre,' . $id
         ]);
         $gestion = Gestion::find($id);
         $gestion->nombre = $request->nombre;
         $gestion->save();
-        return redirect()->route('admin.gestiones.index')->with('success', 'La gestion se ha actualizado correctamente');
+        return redirect()->route('admin.gestiones.index')
+            ->with('mensaje', 'La gestion se ha actualizado correctamente')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gestion $gestion)
+    public function destroy($id)
     {
         //
+        $gestion = Gestion::find($id);
+        $gestion->delete();
+        return redirect()->route('admin.gestiones.index')
+            ->with('mensaje', 'La gestion se ha eliminado correctamente')
+            ->with('icono', 'success');
     }
 }

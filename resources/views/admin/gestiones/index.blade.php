@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Gestiones')
 
 @section('content_header')
 <h1>Listado de gestiones educativas</h1>
@@ -24,8 +24,42 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <a href="{{url('/admin/gestiones/'.$gestion->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
-                            <a href="{{url('/admin/gestiones/edit')}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Borrar</a>
+
+                            <form action="{{url('/admin/gestiones/'.$gestion->id)}}" method="post" id="form_{{$gestion->id}}">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{url('/admin/gestiones/'.$gestion->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="{{ $gestion->id }}">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+
+                            </form>
+
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    document.querySelectorAll(".delete-btn").forEach(button => {
+                                        button.addEventListener("click", function(event) {
+                                            event.preventDefault();
+                                            let id = this.getAttribute("data-id");
+
+                                            Swal.fire({
+                                                title: '¿Desea eliminar este registro?',
+                                                icon: 'question',
+                                                showDenyButton: true,
+                                                confirmButtonText: 'Eliminar',
+                                                confirmButtonColor: '#a5161d',
+                                                denyButtonColor: '#270a0a',
+                                                denyButtonText: 'Cancelar',
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    document.getElementById('form_' + id).submit();
+                                                }
+                                            });
+                                        });
+                                    });
+                                });
+                            </script>
+
                         </div>
                     </div>
                 </div>
@@ -49,6 +83,6 @@
 
 @section('js')
 <script>
-    console.log("Hi, I'm using the Laravel-AdminLTE package!");
+    
 </script>
 @stop
