@@ -10,7 +10,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card card-outline card-primary">
             <div class="card-header">
                 <h3 class="card-title">Niveles registrados</h3>
@@ -79,7 +79,7 @@
                         @foreach ($niveles as $nivel )
 
                         <tr>
-                            <td>{{$nivel->id}}</td>
+                            <td>{{$loop->iteration}}</td>
                             <td>{{$nivel->nombre}}</td>
                             <td>
                                 <div class="row d-flex justify-center">
