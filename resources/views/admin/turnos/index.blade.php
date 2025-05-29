@@ -37,15 +37,18 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$turno->nombre}}</td>
                             <td>
-                                <a href="{{url('/admin/turnos/'.$turno->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                <div class="row">
 
-                                <form action="{{ url('/admin/turnos/'.$turno->id) }}" method="POST" id="miFormulario{{ $turno->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="{{ $turno->id }}">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </button>
-                                </form>
+                                    <a href="{{url('/admin/turnos/'.$turno->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+    
+                                    <form action="{{ url('/admin/turnos/'.$turno->id) }}" method="POST" id="miFormulario{{ $turno->id }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="{{ $turno->id }}">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </div>
 
 
                             </td>
