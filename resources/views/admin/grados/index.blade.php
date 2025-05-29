@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Periodos academicos')
+@section('title', 'Grados academicos')
 
 @section('content_header')
-<h1>Listado de periodos</h1>
+<h1>Listado de grados</h1>
 <hr>
 @stop
 
@@ -13,7 +13,7 @@
     <div class="col-md-10">
         <div class="card card-outline card-primary">
             <div class="card-header">
-                <h3 class="card-title">Periodos registrados</h3>
+                <h3 class="card-title">Grados registrados</h3>
 
                 <div class="card-tools">
                     <!-- Button trigger modal -->
@@ -26,31 +26,31 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Registro de un nuevo periodo</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Registro de un nuevo grado</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
 
-                                    <form action="{{url('/admin/periodos/create')}}" method="POST">
+                                    <form action="{{url('/admin/grados/create')}}" method="POST">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="">Gestiones</label>
+                                                    <label for="">Niveles</label>
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fas fa-university"></i></span>
+                                                            <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
                                                         </div>
-                                                        <select name="gestion_id_create" id="gestion_id_create" class="form-control" required>
-                                                            <option value="">Selecciona una gestion</option>
-                                                            @foreach ($gestiones as $gestion)
-                                                            <option value="{{$gestion->id}}">{{$gestion->nombre}}</option>
+                                                        <select name="nivel_id_create" id="nivel_id_create" class="form-control" required>
+                                                            <option value="">Selecciona un nivel</option>
+                                                            @foreach ($niveles as $nivel)
+                                                            <option value="{{$nivel->id}}">{{$nivel->nombre}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                    @error('gestion_id_create')
+                                                    @error('nivel_id_create')
                                                     <small style="color: red">{{$message}}</small>
                                                     @enderror
                                                 </div>
@@ -59,15 +59,15 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="">Nombre del periodo</label>
+                                                    <label for="">Nombre del grado</label>
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
+                                                            <span class="input-group-text"><i class="fas fa-list-alt"></i></span>
                                                         </div>
-                                                        <input type="text" class="form-control" name="nombre_create" value="{{old('nombre')}}" placeholder="Escribe aqui..." required>
+                                                        <input type="text" class="form-control" name="nombre_create" value="{{old('nombre_create')}}" placeholder="Escribe aqui..." required>
 
                                                     </div>
-                                                    @error('nombre')
+                                                    @error('nombre_create')
                                                     <small style="color: red">{{$message}}</small>
                                                     @enderror
                                                 </div>
@@ -91,92 +91,91 @@
                     <thead>
                         <tr>
                             <th>Nro</th>
-                            <th>Gestion</th>
-                            <th>Periodos</th>
+                            <th>Niveles</th>
+                            <th>Grados</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        @foreach ($gestiones as $gestion )
+                        @foreach ($niveles as $nivel )
 
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$gestion->nombre}}</td>
+                            <td>{{$nivel->nombre}}</td>
                             <td>
-                                @foreach ($gestion->periodos as $periodo)
-                                <span class="badge badge-info">{{$periodo->nombre}}</span><br>
+                                @foreach ($nivel->grados as $grado)
+                                
+                                <span class="badge badge-info">{{$grado->nombre}}</span><br>
                                 @endforeach
 
                             </td>
-
                             <td>
-                                @foreach ($gestion->periodos as $periodo)
+                                @foreach ($nivel->grados as $grado)
                                 <div class="row d-flex justify-center">
-                                   
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalUpdate{{ $periodo->id }}">
-                                        <i class="fas fa-pencil-alt"></i> 
+
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalUpdate{{ $grado->id }}">
+                                        <i class="fas fa-pencil-alt"></i>
                                     </button>
 
-                                    <form action="{{ url('/admin/periodos/'.$periodo->id) }}" method="POST" id="miFormulario{{ $periodo->id }}">
+                                    <form action="{{ url('/admin/grados/'.$grado->id) }}" method="POST" id="miFormulario{{ $grado->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm delete-btn ml-2" data-id="{{ $periodo->id }}">
-                                            <i class="fas fa-trash"></i> 
+                                        <button type="submit" class="btn btn-danger btn-sm delete-btn ml-2" data-id="{{ $grado->id }}">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
-                                    
+
                                 </div>
-                             
+
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="ModalUpdate{{ $periodo->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="ModalUpdate{{ $grado->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Edición de un periodo</h5>
+                                                <h5 class="modal-title">Edición del grado</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/periodos/'.$periodo->id) }}" method="POST">
+                                                <form action="{{ url('/admin/grados/'.$grado->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="">Gestiones</label>
+                                                                <label for="">Niveles</label>
                                                                 <div class="input-group-prepend">
                                                                     <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-university"></i></span>
+                                                                        <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
                                                                     </div>
-                                                                    <select name="gestion_id" id="gestion_id" class="form-control" required>
-                                                                        <option value="">Selecciona una gestion</option>
-                                                                        @foreach ($gestiones as $gestion)
-                                                                        <option value="{{$gestion->id}}" {{$gestion->id == $periodo->gestion_id ? "selected": ""}}>
-                                                                            {{$gestion->nombre}}
+                                                                    <select name="nivel_id" id="nivel_id" class="form-control" required>
+                                                                        <option value="">Selecciona un nivel</option>
+                                                                        @foreach ($niveles as $nivel)
+                                                                        <option value="{{$nivel->id}}" {{$nivel->id == $nivel->nivel_id ? "selected": ""}}>
+                                                                            {{$nivel->nombre}}
                                                                         </option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                @error('gestion_id')
+                                                                @error('nivel_id')
                                                                 <small style="color: red">{{$message}}</small>
                                                                 @enderror
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="">Nombre del periodo</label>
+                                                        <label for="">Nombre del grado</label>
                                                         <div class="input-group">
-                                                            <span class="input-group-text"><i class="fas fa-layer-group"></i></span>
-                                                            <input type="text" class="form-control" name="nombre" value="{{ $periodo->nombre }}" placeholder="Escribe aquí..." required>
+                                                            <span class="input-group-text"><i class="fas fa-list-alt"></i></span>
+                                                            <input type="text" class="form-control" name="nombre" value="{{ $grado->nombre }}" placeholder="Escribe aquí..." required>
                                                         </div>
                                                         @error('nombre')
                                                         <small style="color: red">{{ $message }}</small>
                                                         @enderror
                                                     </div>
-                                                    <div class="modal-footer">
+                                                    <div class="row">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                         <button type="submit" class="btn btn-primary">Actualizar</button>
                                                     </div>
@@ -186,7 +185,7 @@
                                     </div>
                                 </div>
 
-                                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                          
                                 <script>
                                     document.addEventListener("DOMContentLoaded", function() {
                                         document.querySelectorAll(".delete-btn").forEach(button => {
@@ -213,8 +212,10 @@
                                 </script>
                                 @endforeach
                             </td>
+
                         </tr>
                         @endforeach
+
                     </tbody>
                 </table>
 
