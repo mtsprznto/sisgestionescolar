@@ -104,7 +104,7 @@
                             <td>{{$nivel->nombre}}</td>
                             <td>
                                 @foreach ($nivel->grados as $grado)
-                                
+
                                 <span class="badge badge-info">{{$grado->nombre}}</span><br>
                                 @endforeach
 
@@ -153,9 +153,11 @@
                                                                     <select name="nivel_id" id="nivel_id" class="form-control" required>
                                                                         <option value="">Selecciona un nivel</option>
                                                                         @foreach ($niveles as $nivel)
-                                                                        <option value="{{$nivel->id}}" {{$nivel->id == $nivel->nivel_id ? "selected": ""}}>
+                                                                        <option value="{{$nivel->id}}" {{$grado->nivel_id == $nivel->id ? "selected" : ""}}>
                                                                             {{$nivel->nombre}}
                                                                         </option>
+
+
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
@@ -185,7 +187,7 @@
                                     </div>
                                 </div>
 
-                          
+
                                 <script>
                                     document.addEventListener("DOMContentLoaded", function() {
                                         document.querySelectorAll(".delete-btn").forEach(button => {

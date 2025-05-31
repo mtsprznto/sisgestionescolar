@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Grado;
 use App\Models\Nivel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GradoController extends Controller
 {
@@ -69,16 +70,42 @@ class GradoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Grado $grado)
+    public function update(Request $request, $id)
     {
         //
+        $validate = Validator::make($request->all(), [
+            'nivel_id' => 'required|exists:nivels,id',
+            'nombre' => 'required|string|max:255'
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()
+                ->back()
+                ->withError($validate)
+                ->withInput()
+                ->with('modal_id', $id);
+        }
+
+        $grado = Grado::find($id);
+        $grado->nombre = $request->nombre;
+        $grado->nivel_id = $request->nivel_id;
+        $grado->save();
+
+        return redirect()->route('admin.grados.index')
+            ->with('mensaje', 'El grado se ha actualizado correctamente')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Grado $grado)
+    public function destroy($id)
     {
         //
+        $grado = Grado::find($id);
+        $grado->delete();
+        return redirect()->route('admin.grados.index')
+            ->with('mensaje', 'El grado se ha eliminado correctamente')
+            ->with('icono', 'success');
     }
 }
