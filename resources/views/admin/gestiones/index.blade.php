@@ -15,7 +15,7 @@
 
     <div class="col-md-3 col-sm-6 col-12">
         <div class="info-box zoomP">
-            <img src="{{url('/img/calendario.gif')}}" width="70px" height="70px" alt="calendario">
+            <img src="{{url('/img/colegio.gif')}}" width="70px" height="70px" alt="calendario">
             <div class="info-box-content">
                 <span class="info-box-text"><b>Gestiones Educativas</b></span>
 
