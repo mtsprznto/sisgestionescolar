@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Gestion</b>Escolar',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -341,6 +341,18 @@ return [
             'url' => 'admin/turnos',
             'icon' => 'fas fa-fw fa-clock',
             'classes' => 'bg-blue text-white'
+        ],
+        [
+            'text' => 'Materias',
+            'url' => 'admin/materias',
+            'icon' => 'fas fa-fw fa-book',
+            'classes' => 'bg-blue text-white'
+        ],
+        [
+            'text' => 'Roles',
+            'icon' => 'fas fa-fw fa-user-check',
+            'classes' => 'bg-blue text-white',
+            'url' => 'admin/roles'
         ],
 
     ],

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Grado;
-use App\Models\Paralelo;
-use Illuminate\Auth\Events\Validated;
+use App\Models\Materia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ParaleloController extends Controller
+class MateriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,8 @@ class ParaleloController extends Controller
     public function index()
     {
         //
-        $grados = Grado::with('paralelos')->orderBy('nombre', 'asc')->get();
-        return view('admin.paralelos.index', compact('grados'));
+        $materias = Materia::all();
+        return view('admin.materias.index', compact('materias'));
     }
 
     /**
@@ -34,29 +32,28 @@ class ParaleloController extends Controller
     public function store(Request $request)
     {
         //
-        /* 
+        /*
         $datos = request()->all();
         return response()->json($datos);
         */
+
         $request->validate([
             'nombre_create' => 'required|string|max:255',
-            'grado_id_create' => 'required|exists:grados,id',
         ]);
 
-        $paralelo = new Paralelo();
+        $paralelo = new Materia();
         $paralelo->nombre = $request->nombre_create;
-        $paralelo->grado_id = $request->grado_id_create;
         $paralelo->save();
 
-        return redirect()->route("admin.paralelos.index")
-            ->with('mensaje', 'El paralelo se ha creado correctamente')
+        return redirect()->route("admin.materias.index")
+            ->with('mensaje', 'La materia se ha creado correctamente')
             ->with('icono', 'success');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Paralelo $paralelo)
+    public function show(Materia $materia)
     {
         //
     }
@@ -64,7 +61,7 @@ class ParaleloController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Paralelo $paralelo)
+    public function edit(Materia $materia)
     {
         //
     }
@@ -77,27 +74,25 @@ class ParaleloController extends Controller
         //
 
         $validate = Validator::make($request->all(), [
-            'grado_id' => 'required|exists:grados,id',
             'nombre' => 'required|string|max:255',
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return redirect()
                 ->back()
                 ->withErrors($validate)
                 ->withInput()
-                ->with("modal_id",$id);
+                ->with("modal_id", $id);
         }
-       
 
-        $paralelo = Paralelo::find($id);
 
-        $paralelo->nombre = $request->nombre;
-        $paralelo->grado_id = $request->grado_id;
-        $paralelo->save();
+        $materia = Materia::find($id);
 
-        return redirect()->route("admin.paralelos.index")
-            ->with('mensaje', 'El paralelo se ha actualizado correctamente')
+        $materia->nombre = $request->nombre;
+        $materia->save();
+
+        return redirect()->route("admin.materias.index")
+            ->with('mensaje', 'La materia se ha actualizado correctamente')
             ->with('icono', 'success');
     }
 
@@ -107,11 +102,11 @@ class ParaleloController extends Controller
     public function destroy($id)
     {
         //
-        $paralelo = Paralelo::find($id);
-        $paralelo->delete();
+        $materia = Materia::find($id);
+        $materia->delete();
 
-        return redirect()->route("admin.paralelos.index")
-            ->with('mensaje', 'El paralelo se ha eliminado correctamente')
+        return redirect()->route("admin.materias.index")
+            ->with('mensaje', 'La materia se ha eliminado correctamente')
             ->with('icono', 'success');
 
     }

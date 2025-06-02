@@ -9,23 +9,101 @@
 @section('content')
 <div class="row">
     <div class="col-md-3 col-sm-6 col-12">
-        <div class="info-box zoomP">
-            <img src="{{url('/img/colegio.gif')}}" alt="" width="70px">
-            <div class="info-box-content">
-                <span class="info-box-text"><b>Gestiones registradas</b></span>
-                <span class="info-box-number">{{$total_gestiones}} gestiones</span>
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{$total_gestiones}}</h3>
+
+                <p>Gestiones</p>
             </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-tasks"></i>
+            </div>
+            <a href="{{url('admin/gestiones')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{$total_periodos}}</h3>
+
+                <p>Periodos</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-calendar-alt"></i>
+            </div>
+            <a href="{{url('admin/periodos')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{$total_niveles}}</h3>
+
+                <p>Niveles</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-layer-group"></i>
+            </div>
+            <a href="{{url('admin/niveles')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{$total_grados}}</h3>
+
+                <p>Grados</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-list-alt"></i>
+            </div>
+            <a href="{{url('admin/grados')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-md-3 col-sm-6 col-12">
-        <div class="info-box zoomP">
-            <img src="{{url('/img/calendario.gif')}}" alt="" width="70px">
-            <div class="info-box-content">
-                <span class="info-box-text"><b>Periodos registradas</b></span>
-                <span class="info-box-number">{{$total_periodos}} periodos</span>
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{$total_paralelos}}</h3>
+
+                <p>Paralelos</p>
             </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-clone"></i>
+            </div>
+            <a href="{{url('admin/paralelos')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{$total_turnos}}</h3>
+
+                <p>Turnos</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-clock"></i>
+            </div>
+            <a href="{{url('admin/turnos')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{$total_materias}}</h3>
+
+                <p>Materias</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <a href="{{url('admin/materias')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    
 </div>
 @stop
 
