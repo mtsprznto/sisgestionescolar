@@ -1,0 +1,8 @@
+Table personals {
+    id int [pk, increment] // Primary key with auto-increment
+    name varchar(100) // Name of the person
+    age int // Age of the person
+    email varchar(100) // Email address of the person
+    created_at datetime // Timestamp when the record was created
+    updated_at datetime // Timestamp when the record was last updated
+}

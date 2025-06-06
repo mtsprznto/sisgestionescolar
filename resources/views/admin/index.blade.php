@@ -63,6 +63,7 @@
             <a href="{{url('admin/grados')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+
     <div class="col-md-3 col-sm-6 col-12">
         <div class="small-box bg-info">
             <div class="inner">
@@ -76,6 +77,7 @@
             <a href="{{url('admin/paralelos')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+
     <div class="col-md-3 col-sm-6 col-12">
         <div class="small-box bg-success">
             <div class="inner">
@@ -89,6 +91,7 @@
             <a href="{{url('admin/turnos')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+
     <div class="col-md-3 col-sm-6 col-12">
         <div class="small-box bg-warning">
             <div class="inner">
@@ -102,7 +105,20 @@
             <a href="{{url('admin/materias')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+    
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{$total_roles}}</h3>
 
+                <p>Roles</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-user-check"></i>
+            </div>
+            <a href="{{url('admin/roles')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
     
 </div>
 @stop

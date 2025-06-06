@@ -354,6 +354,24 @@ return [
             'classes' => 'bg-blue text-white',
             'url' => 'admin/roles'
         ],
+        [
+            'text' => 'Personal',
+            'icon' => 'fas fa-fw fa-user-cog',
+            'classes' => 'bg-blue text-white',
+            'submenu' => [
+                [
+                    'text' => 'Administrativo',
+                    'url' => 'admin/personal/administrativo',
+                    'classes' => 'bg-white text-black',
+
+                ],
+                [
+                    'text' => 'Docente',
+                    'url' => 'admin/personal/docente',
+                    'classes' => 'bg-white text-black'
+                ]
+            ]
+        ],
 
     ],
 
