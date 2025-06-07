@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personal;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class PersonalController extends Controller
 {
@@ -21,9 +24,11 @@ class PersonalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($tipo)
     {
         //
+        $roles = Role::all();
+        return view('admin.personal.create', compact('tipo', 'roles'));
     }
 
     /**
@@ -32,6 +37,54 @@ class PersonalController extends Controller
     public function store(Request $request)
     {
         //
+        /*
+        $datos = request()->all();
+        return response()->json($datos);
+        */
+        $request->validate([
+            'foto' => 'required',
+            'rol' => 'required',
+            'nombres' => 'required',
+            'apellidos' => 'required',
+            'ci' => 'required|unique:personals',
+            'fecha_nacimiento' => 'required',
+            'telefono' => 'required',
+            'profesion' => 'required',
+            'email' => 'required|unique:users',
+            'direccion' => 'required',
+            'tipo' => 'required',
+        ]);
+        $usuario = new User();
+        $usuario->name = $request->apellidos . ' ' . $request->nombres;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->ci);
+        $usuario->save();
+
+        $usuario->assignRole($request->role);
+
+        $personal = new Personal();
+        $personal->usuario_id = $usuario->id;
+        $personal->tipo = $request->tipo;
+        $personal->nombres = $request->nombres;
+        $personal->apellidos = $request->apellidos;
+        $personal->ci = $request->ci;
+        $personal->fecha_nacimiento = $request->fecha_nacimiento;
+        $personal->direccion = $request->direccion;
+        $personal->telefono = $request->telefono;
+        $personal->profesion = $request->profesion;
+
+
+        $fotoPath = $request->file('foto');
+        $nombreArchivo = time() . '_' . $fotoPath->getClientOriginalName();
+        $rutaDestino = public_path('uploads/fotos');
+        $fotoPath->move($rutaDestino, $nombreArchivo);
+        $personal->foto = 'uploads/fotos/' . $nombreArchivo;
+
+        $personal->save();
+
+        return redirect()->route('admin.personal.index', $request->tipo)
+            ->with('mensaje', 'El personal se ha creado correctamente')
+            ->with('icono', 'success');
     }
 
     /**

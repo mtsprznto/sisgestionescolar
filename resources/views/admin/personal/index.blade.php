@@ -42,7 +42,7 @@
                                     <form action="{{ url('/admin/personal/'.$personal->id) }}" method="POST" id="miFormulario{{ $personal->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="{{ $role->id }}">
+                                        <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="{{ $personal->id }}">
                                             <i class="fas fa-trash"></i> Eliminar
                                         </button>
                                     </form>

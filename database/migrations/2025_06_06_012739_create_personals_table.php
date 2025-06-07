@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string("ci")->unique();
             $table->date('fecha_nacimiento');
             $table->string('direccion');
+            $table->string('telefono');
             $table->string('profesion');
+            $table->string('foto');
 
 
 
