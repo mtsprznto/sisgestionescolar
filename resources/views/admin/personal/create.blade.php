@@ -17,7 +17,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{url('/admin/personal/create')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('/admin/personal/create')}}" method="POST" enctype="multipart/form-data"">
                     @csrf
                     <input type="text" name="tipo" value="{{$tipo}}" hidden>
                     <div class="row">
@@ -36,13 +36,13 @@
                                         name="foto"
                                         required>
                                     <br>
-
+                                    <img id="preview" src="" style="max-width: 150px; margin-top: 10px;">
                                     <script>
                                         const mostrarImagen = e =>
                                             document.getElementById('preview').src = URL.createObjectURL(e.target.files[0]);
                                     </script>
                                 </div>
-                                @error('nombre')
+                                @error('foto')
                                 <small style="color: red">{{$message}}</small>
                                 @enderror
                             </div>
@@ -56,7 +56,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-user-check"></i></span>
                                             </div>
-                                            <select name="rol" id="" class="form-control">
+                                            <select name="rol" id="rol_select" class="form-control">
                                                 <option value="">Seleccione un rol...</option>
                                                 @foreach ($roles as $rol)
                                                 <option value="{{$rol->name}}">{{$rol->name}}</option>
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Profesor</label>
+                                        <label for="">Profesion</label>
                                         <div class="input-group mb-12">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">

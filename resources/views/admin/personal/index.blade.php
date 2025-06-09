@@ -10,7 +10,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card card-outline card-primary">
             <div class="card-header">
                 <h3 class="card-title">Personal registrado</h3>
@@ -25,6 +25,14 @@
                     <thead>
                         <tr>
                             <th>Nro</th>
+                            <th>Rol</th>
+                            <th>Apellidos y nombres</th>
+                            <th>Carnet Identidad</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Telefono</th>
+                            <th>Profesion</th>
+                            <th>Correo</th>
+                            <th>Foto</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -34,6 +42,7 @@
 
                         <tr>
                             <td>{{$loop->iteration}}</td>
+                            <td>{{$personal->usuario->roles->pluck('name')->implode(', ')}}</td>
                             <td>
                                 <div class="row">
 

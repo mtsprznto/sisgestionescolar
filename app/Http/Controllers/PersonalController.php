@@ -17,7 +17,10 @@ class PersonalController extends Controller
     {
         //
 
-        $personals = Personal::where('tipo', $tipo)->get();
+        $personals = Personal::where('tipo', $tipo)
+            ->with('usuario.roles')
+            ->get();
+
         return view('admin.personal.index', compact('personals', 'tipo'));
     }
 
@@ -37,7 +40,7 @@ class PersonalController extends Controller
     public function store(Request $request)
     {
         //
-        /*
+        /*  
         $datos = request()->all();
         return response()->json($datos);
         */
@@ -60,7 +63,7 @@ class PersonalController extends Controller
         $usuario->password = Hash::make($request->ci);
         $usuario->save();
 
-        $usuario->assignRole($request->role);
+        $usuario->assignRole($request->rol);
 
         $personal = new Personal();
         $personal->usuario_id = $usuario->id;
@@ -83,7 +86,7 @@ class PersonalController extends Controller
         $personal->save();
 
         return redirect()->route('admin.personal.index', $request->tipo)
-            ->with('mensaje', 'El personal se ha creado correctamente')
+            ->with('mensaje', 'El personal ' . $request->tipo . ' se ha creado correctamente')
             ->with('icono', 'success');
     }
 
