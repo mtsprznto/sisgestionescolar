@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Personal')
 
 @section('content_header')
 <h1>Creacion de un nuevo personal: {{$tipo}}</h1>
@@ -19,7 +19,7 @@
             <div class="card-body">
                 <form action="{{url('/admin/personal/create')}}" method="POST" enctype="multipart/form-data"">
                     @csrf
-                    <input type="text" name="tipo" value="{{$tipo}}" hidden>
+                    <input type=" text" name="tipo" value="{{$tipo}}" hidden>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -205,7 +205,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <a href="{{url('/admin/roles')}}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Cancelar</a>
+                                <a href="{{url('/admin/personal/'.$tipo)}}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Cancelar</a>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
                             </div>
                         </div>

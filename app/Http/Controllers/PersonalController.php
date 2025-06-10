@@ -93,32 +93,101 @@ class PersonalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Personal $personal)
+    public function show($id)
     {
         //
+        $personal = Personal::findOrFail($id);
+        return view('admin.personal.show', compact('personal'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Personal $personal)
+    public function edit($id)
     {
         //
+        $personal = Personal::findOrFail($id);
+        $roles = Role::all();
+        return view('admin.personal.edit', compact('personal', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Personal $personal)
+    public function update(Request $request, $id)
     {
         //
+        /*
+        $datos = request()->all();
+        return response()->json($datos);
+         */
+        $personal = Personal::findOrFail($id);
+
+        $usuario = User::findOrFail($personal->usuario_id);
+
+        $request->validate([
+            'rol' => 'required',
+            'nombres' => 'required',
+            'apellidos' => 'required',
+            'ci' => 'required|unique:personals,ci,' . $id,
+            'fecha_nacimiento' => 'required',
+            'telefono' => 'required',
+            'profesion' => 'required',
+            'email' => 'required|unique:users,email,' . $usuario->id,
+            'direccion' => 'required',
+        ]);
+
+        $usuario->name = $request->apellidos . ' ' . $request->nombres;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->ci);
+        $usuario->save();
+
+        $usuario->syncRoles($request->rol);
+
+
+
+        $personal->nombres = $request->nombres;
+        $personal->apellidos = $request->apellidos;
+        $personal->ci = $request->ci;
+        $personal->fecha_nacimiento = $request->fecha_nacimiento;
+        $personal->direccion = $request->direccion;
+        $personal->telefono = $request->telefono;
+        $personal->profesion = $request->profesion;
+
+        if ($request->hasFile('foto')) {
+            if ($personal->foto && file_exists(public_path($personal->foto))) {
+                unlink(public_path($personal->foto));
+            }
+            $fotoPath = $request->file('foto');
+            $nombreArchivo = time() . '_' . $fotoPath->getClientOriginalName();
+            $rutaDestino = public_path('uploads/fotos');
+            $fotoPath->move($rutaDestino, $nombreArchivo);
+            $personal->foto = 'uploads/fotos/' . $nombreArchivo;
+        }
+        $personal->save();
+
+        return redirect()->route('admin.personal.index', $personal->tipo)
+            ->with('mensaje', 'El personal ' . $personal->tipo . ' se ha actualizado correctamente')
+            ->with('icono', 'success');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Personal $personal)
+    public function destroy($id)
     {
         //
+        $personal = Personal::findOrFail($id);
+        $usuario = User::findOrFail($personal->usuario_id);
+
+        if ($personal->foto && file_exists(public_path($personal->foto))) {
+            unlink(public_path($personal->foto));
+        }
+        $usuario->delete();
+        $personal->delete();
+
+        return redirect()->route('admin.personal.index', $personal->tipo)
+            ->with('mensaje', 'El personal ' . $personal->tipo . ' se ha eliminado correctamente')
+            ->with('icono', 'success');
     }
 }
