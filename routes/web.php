@@ -96,3 +96,7 @@ Route::get('/admin/personal/{id}/edit', [App\Http\Controllers\PersonalController
 Route::get('/admin/personal/permisos/{id}', [App\Http\Controllers\PersonalController::class, 'edit'])->name('admin.personal.permisos')->middleware('auth');
 Route::put('/admin/personal/{id}', [App\Http\Controllers\PersonalController::class, 'update'])->name('admin.personal.update')->middleware('auth');
 Route::delete('/admin/personal/{id}', [App\Http\Controllers\PersonalController::class, 'destroy'])->name('admin.personal.destroy')->middleware('auth');
+
+
+// RUTAS PARA LA FORMACION DEL PERSONAL
+Route::get('/admin/personal/{id}/formaciones', [App\Http\Controllers\FormacionController::class, 'index'])->name('admin.formaciones.index')->middleware('auth');

@@ -20,15 +20,14 @@
                 </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
-                <table id="example1" class="table table_bordered table-striped table-hover table-sm">
+            <div class="card-body table-responsive">
+                <table id="example1" class="table table-bordered table-striped table-hover table-sm">
                     <thead>
                         <tr>
                             <th>Nro</th>
                             <th>Rol</th>
                             <th>Apellidos y nombres</th>
                             <th>Carnet Identidad</th>
-                            <th>Fecha de nacimiento</th>
                             <th>Telefono</th>
                             <th>Profesion</th>
                             <th>Correo</th>
@@ -45,7 +44,6 @@
                             <td>{{$personal->usuario->roles->pluck('name')->implode(', ')}}</td>
                             <td>{{$personal->apellidos}} {{$personal->nombres}}</td>
                             <td>{{$personal->ci}}</td>
-                            <td>{{$personal->fecha_nacimiento}}</td>
                             <td>{{$personal->telefono}}</td>
                             <td>{{$personal->profesion}}</td>
                             <td>{{$personal->usuario->email}}</td>
@@ -55,6 +53,9 @@
                             <td>
                                 <div class="row">
 
+                                    <a href="{{url('/admin/personal/'.$personal->id.'/formaciones')}}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-tasks"></i> Formación
+                                    </a>
                                     <a href="{{url('/admin/personal/show/'.$personal->id)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
                                     <a href="{{url('/admin/personal/'.$personal->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
 
@@ -99,10 +100,8 @@
                         @endforeach
                     </tbody>
                 </table>
-
-
-
             </div>
+            
             <!-- /.card-body -->
         </div>
 
@@ -168,6 +167,9 @@
 <script>
     $(function() {
         $('#example1').DataTable({
+            "responsive": true,
+            "scrollX": true,
+            "autoWidth": false,
             "pageLength": 5,
             "language": {
                 "emptyTable": "No hay informacion",
