@@ -101,7 +101,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <!-- /.card-body -->
         </div>
 
@@ -159,6 +159,100 @@
         color: #212529;
         border: none;
     }
+
+    table {
+        width: 100% !important;
+        table-layout: fixed;
+        /* Hace que las columnas tengan un ancho fijo */
+    }
+    thead{
+        width: 100% !important;
+    }
+
+    th,
+    td {
+        text-align: start;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* Trunca el texto largo con "..." */
+        white-space: nowrap;
+        /* Evita que el texto se divida en varias líneas */
+    }
+
+    img {
+        max-width: 100px;
+        /* Ajusta el tamaño máximo de las imágenes */
+        height: auto;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        /* Permite que los botones se ajusten si son demasiados */
+        justify-content: start;
+    }
+
+    .row a,
+    .row button {
+        flex: 1;
+        /* Hace que todos los botones ocupen el mismo espacio */
+        margin: 5px;
+        /* Espaciado entre botones */
+        text-align: start;
+        /* Centra el texto dentro del botón */
+        min-width: 120px;
+        /* Define un ancho mínimo para los botones */
+        max-width: 150px;
+        /* Define un ancho máximo para los botones */
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        /* Permite que los botones se ajusten si son demasiados */
+        justify-content: start;
+        /* Centra los botones dentro de la fila */
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        /* Agrega scroll horizontal si la tabla se desborda */
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        /* Hace que las columnas tengan un ancho fijo */
+        border-collapse: collapse;
+        /* Asegura que las celdas estén alineadas */
+    }
+
+    th,
+    td {
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* Trunca el texto largo con "..." */
+        white-space: nowrap;
+        /* Evita que el texto se divida en varias líneas */
+        box-sizing: border-box;
+        /* Asegura que el padding no afecte el tamaño de las celdas */
+    }
+
+    thead th {
+        background-color: #f8f9fa;
+        /* Color de fondo para diferenciar el encabezado */
+        position: sticky;
+        /* Hace que el encabezado sea fijo al hacer scroll */
+        top: 0;
+        z-index: 2;
+        /* Asegura que el encabezado esté por encima del contenido */
+    }
+
+    tbody tr:hover {
+        background-color: #f1f1f1;
+        /* Resalta la fila al pasar el cursor */
+    }
 </style>
 
 @stop
@@ -169,8 +263,10 @@
         $('#example1').DataTable({
             "responsive": true,
             "scrollX": true,
-            "autoWidth": false,
+            "autoWidth": true,
             "pageLength": 5,
+            "responsive": true,
+            "lengthChange": true,
             "language": {
                 "emptyTable": "No hay informacion",
                 "info": "Mostrando _START_ a _END_ de _TOTAL_ Personal",
@@ -188,9 +284,7 @@
                     "previous": "Anterior"
                 }
             },
-            "responsive": true,
-            "lengthChange": true,
-            "autoWidth": false,
+            
             buttons: [{
                     text: '<i class="fas fa-copy"></i> Copiar',
                     extend: "copy",
