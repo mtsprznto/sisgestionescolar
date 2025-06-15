@@ -23,9 +23,10 @@ class FormacionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
         //
+        return view('admin.formaciones.create', compact('id'));
     }
 
     /**
@@ -34,6 +35,37 @@ class FormacionController extends Controller
     public function store(Request $request)
     {
         //
+        /*
+        $datos = request()->all();
+        return response()->json($datos);
+        */
+        $request->validate([
+            'personal_id' => 'required',
+            'titulo' => 'required',
+            'institucion' => 'required',
+            'nivel' => 'required',
+            'fecha_graduacion' => 'required',
+            'archivo' => 'required',
+        ]);
+
+        $formacion = new Formacion();
+        $formacion->personal_id = $request->personal_id;
+        $formacion->titulo = $request->titulo;
+        $formacion->institucion = $request->institucion;
+        $formacion->nivel = $request->nivel;
+        $formacion->fecha_graduacion = $request->fecha_graduacion;
+
+        $fotoPath = $request->file('archivo');
+        $nombreArchivo = time() . '_' . $fotoPath->getClientOriginalName();
+        $rutaDestino = public_path('uploads/formaciones');
+        $fotoPath->move($rutaDestino, $nombreArchivo);
+        $formacion->archivo = 'uploads/fotos/' . $nombreArchivo;
+
+        $formacion->save();
+
+        return redirect()->route('admin.formaciones.index', $request->personal_id)
+            ->with('mensaje', 'La formacion se ha creado correctamente')
+            ->with('icono', 'success');
     }
 
     /**

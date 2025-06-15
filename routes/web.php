@@ -100,3 +100,5 @@ Route::delete('/admin/personal/{id}', [App\Http\Controllers\PersonalController::
 
 // RUTAS PARA LA FORMACION DEL PERSONAL
 Route::get('/admin/personal/{id}/formaciones', [App\Http\Controllers\FormacionController::class, 'index'])->name('admin.formaciones.index')->middleware('auth');
+Route::get('/admin/personal/{id}/formaciones/create', [App\Http\Controllers\FormacionController::class, 'create'])->name('admin.formaciones.create')->middleware('auth');
+Route::post('/admin/personal/{id}/formaciones/create', [App\Http\Controllers\FormacionController::class, 'store'])->name('admin.formaciones.store')->middleware('auth');

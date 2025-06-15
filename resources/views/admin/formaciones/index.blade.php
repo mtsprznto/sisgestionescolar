@@ -206,9 +206,12 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card card-primary">
+        <div class="card card-primary card-outline">
             <div class="card-header">
                 <h3 class="card-title">Formaciones registradas</h3>
+                <div class="card-tools">
+                    <a href="{{url('/admin/personal/'.$personal->id.'/formaciones/create/')}}" class="btn btn-primary">Registrar nuevo</a>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -238,8 +241,8 @@
                             <td>
                                 <div class="row">
 
-                                
-                            
+
+
                                     <a href="{{url('/admin/personal/'.$formacion->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
 
                                     <form action="{{ url('/admin/personal/'.$formacion->id) }}" method="POST" id="miFormulario{{ $formacion->id }}">
@@ -400,7 +403,6 @@
         z-index: 2;
         /* Asegura que el encabezado esté por encima del contenido */
     }
-
 </style>
 @stop
 
