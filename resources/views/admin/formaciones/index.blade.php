@@ -237,15 +237,17 @@
                             <td>{{$formacion->institucion}}</td>
                             <td>{{$formacion->nivel}}</td>
                             <td>{{$formacion->fecha_graduacion}}</td>
-                            <td>{{$formacion->archivo}}</td>
+                            <td>
+                                <a href="{{url($formacion->archivo)}}" target="_blank">Ver archivo</a>
+                            </td>
                             <td>
                                 <div class="row">
 
 
 
-                                    <a href="{{url('/admin/personal/'.$formacion->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                    <a href="{{url('/admin/personal/formaciones/'.$formacion->id)}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
 
-                                    <form action="{{ url('/admin/personal/'.$formacion->id) }}" method="POST" id="miFormulario{{ $formacion->id }}">
+                                    <form action="{{ url('/admin/personal/formaciones/'.$formacion->id) }}" method="POST" id="miFormulario{{ $formacion->id }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="{{ $formacion->id }}">

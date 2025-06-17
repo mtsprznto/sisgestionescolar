@@ -3,7 +3,7 @@
 @section('title', 'Formacion del personal')
 
 @section('content_header')
-<h1>Creacion de una nueva formacion</h1>
+<h1>Edicion de una nueva formacion</h1>
 <hr>
 @stop
 
@@ -13,19 +13,19 @@
     <div class="col-md-12">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Agregar una nueva formacion</h3>
+                <h3 class="card-title">Editar formacion</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{url('/admin/personal/'.$id.'/formaciones/create')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('/admin/personal/formaciones/'.$formacion->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="text" name="personal_id" value="{{ $id }}" hidden>
+                    @method('PUT')
                     <div class="row">
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Fotografia</label><b> (*)</b>
+                                        <label for="">Archivo</label><b> (*)</b>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-image"></i></span>
@@ -35,10 +35,9 @@
                                                 type="file"
                                                 onchange="mostrarImagen(event)"
                                                 accept="image/*"
-                                                name="archivo"
-                                                required>
+                                                name="archivo">
                                             <br>
-                                            <img id="preview" src="" style="max-width: 150px; margin-top: 10px;">
+                                            <img id="preview" src="{{ url( $formacion->archivo) }}" style="max-width: 150px; margin-top: 10px;">
                                             <script>
                                                 const mostrarImagen = e =>
                                                     document.getElementById('preview').src = URL.createObjectURL(e.target.files[0]);
@@ -61,7 +60,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-certificate"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" value="{{ old('titulo') }}" name="titulo" placeholder="Ingrese el titulo">
+                                            <input type="text" class="form-control" value="{{ old('titulo', $formacion->titulo) }}" name="titulo" placeholder="Ingrese el titulo">
                                         </div>
                                         @error('titulo')
                                         <small style="color: red">{{$message}}</small>
@@ -76,7 +75,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-university"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" value="{{ old('institucion') }}" name="institucion" placeholder="Ingrese la institucion">
+                                            <input type="text" class="form-control" value="{{ old('institucion', $formacion->institucion) }}" name="institucion" placeholder="Ingrese la institucion">
                                         </div>
                                         @error('institucion')
                                         <small style="color: red">{{$message}}</small>
@@ -94,12 +93,12 @@
                                                     <i class="fas fa-layer-group"></i>
                                                 </span>
                                             </div>
-                                            <select name="nivel" id="nivel" class="form-control" required>
+                                            <select name="nivel" id="nivel" class="form-control">
                                                 <option value="" disabled selected>Seleccione el nivel...</option>
-                                                <option value="Tecnico" {{old('nivel')== 'Tecnico' ? 'selected' : ''}}>Tecnico</option>
-                                                <option value="Licenciatura" {{old('nivel')== 'Licenciatura' ? 'selected' : ''}}>Licenciatura</option>
-                                                <option value="Maestria" {{old('nivel')== 'Maestria' ? 'selected' : ''}}>Maestria</option>
-                                                <option value="Doctorado" {{old('nivel')== 'Doctorado' ? 'selected' : ''}}>Maestria</option>
+                                                <option value="Tecnico" {{old('nivel', $formacion->nivel)== 'Tecnico' ? 'selected' : ''}}>Tecnico</option>
+                                                <option value="Licenciatura" {{old('nivel', $formacion->nivel)== 'Licenciatura' ? 'selected' : ''}}>Licenciatura</option>
+                                                <option value="Maestria" {{old('nivel', $formacion->nivel)== 'Maestria' ? 'selected' : ''}}>Maestria</option>
+                                                <option value="Doctorado" {{old('nivel', $formacion->nivel)== 'Doctorado' ? 'selected' : ''}}>Maestria</option>
                                             </select>
                                         </div>
                                         @error('nivel')
@@ -116,7 +115,7 @@
                                                     <i class="fas fa-layer-group"></i>
                                                 </span>
                                             </div>
-                                            <input type="date" class="form-control" name="fecha_graduacion" id="fecha_graduacion" value="{{ old('fecha_graduacion')}}">
+                                            <input type="date" class="form-control" name="fecha_graduacion" id="fecha_graduacion" value="{{ old('fecha_graduacion', $formacion->fecha_graduacion)}}">
                                         </div>
                                         @error('fecha_graduacion')
                                         <small style="color:red">{{$message}}</small>
@@ -132,7 +131,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <a href="{{ URL::previous() }}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Actualizar</button>
                             </div>
                         </div>
                     </div>
