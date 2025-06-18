@@ -120,6 +120,33 @@
         </div>
     </div>
     
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{$total_personal_administrativo}}</h3>
+
+                <p>Administrativos</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-user-cog "></i>
+            </div>
+            <a href="{{url('admin/personal/administrativo')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{$total_personal_doncente}}</h3>
+
+                <p>Docentes</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-fw fa-user-cog"></i>
+            </div>
+            <a href="{{url('admin/personal/docente')}}" class="small-box-footer">Más información <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    
 </div>
 @stop
 
