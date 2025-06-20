@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estudiante;
+use App\Models\Ppff;
 use Illuminate\Http\Request;
 
 class EstudianteController extends Controller
@@ -23,7 +24,9 @@ class EstudianteController extends Controller
     public function create()
     {
         //
-        return view(view: 'admin.estudiantes.nuevos.create');
+        $ppffs = Ppff::all();
+
+        return view('admin.estudiantes.nuevos.create', compact('ppffs'));
     }
 
     /**
