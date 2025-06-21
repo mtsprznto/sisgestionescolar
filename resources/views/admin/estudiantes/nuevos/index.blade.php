@@ -37,18 +37,18 @@
                             <td>{{$loop->iteration}}</td>
                             
                             <td>
-                                <img src="{{ url($personal->foto) }}" width="100px" alt="foto">
+                                <img src="{{ url($estudiante->foto) }}" width="100px" alt="foto">
                             </td>
                             <td>
                                 <div class="row">
 
-                                    <a href="{{url('/admin/personal/'.$estudiante->id.'/formaciones')}}" class="btn btn-warning btn-sm">
+                                    <a href="{{url('/admin/estudiantes/'.$estudiante->id.'/formaciones')}}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-tasks"></i> Formación
                                     </a>
-                                    <a href="{{url('/admin/personal/show/'.$estudiante->id)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                    <a href="{{url('/admin/personal/'.$personal->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                                    <a href="{{url('/admin/estudiantes/show/'.$estudiante->id)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+                                    <a href="{{url('/admin/estudiantes/'.$estudiante->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
 
-                                    <form action="{{ url('/admin/personal/'.$estudiante->id) }}" method="POST" id="miFormulario{{ $estudiante->id }}">
+                                    <form action="{{ url('/admin/estudiantes/'.$estudiante->id) }}" method="POST" id="miFormulario{{ $estudiante->id }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="{{ $estudiante->id }}">

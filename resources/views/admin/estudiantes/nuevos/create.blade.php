@@ -63,13 +63,13 @@
                                                         style="width: 1%; white-space: nowrap; padding: 8px; position: relative;">
                                                         <button class="btn btn-info btn-sm btn-seleccionar"
                                                             data-nombres="{{$ppff->nombres}}"
-                                                            data-apellidos="{{$ppff->apellidos}}" 
-                                                            data-ci="{{$ppff->ci}}"
+                                                            data-apellidos="{{$ppff->apellidos}}" data-ci="{{$ppff->ci}}"
                                                             data-fecha_nacimiento="{{$ppff->fecha_nacimiento}}"
                                                             data-telefono="{{$ppff->telefono}}"
                                                             data-parentesco="{{$ppff->parentesco}}"
                                                             data-ocupacion="{{$ppff->ocupacion}}"
                                                             data-direccion="{{$ppff->direccion}}"
+                                                            data-id="{{$ppff->id}}"
                                                             style="min-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                             Seleccionar
                                                         </button>
@@ -106,7 +106,104 @@
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#ModalCreatePpff">
+                                        Crear nuevo apoderado
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="ModalCreatePpff" tabindex="-1"
+                                        aria-labelledby="ModalCreatePpffLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header"
+                                                    style="background-color:rgb(23, 34, 184); color: #fff;">
+                                                    <h5 class="modal-title" id="ModalCreatePpffLabel">Registro de un
+                                                        nuevo apoderado</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ url('admin/estudiantes/ppff/create') }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Nombres</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="nombres" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Apellidos</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="apellidos" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Carnet de identidad</label>
+                                                                    <input type="text" class="form-control" name="ci"
+                                                                        required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Fecha de nacimiento</label>
+                                                                    <input type="date" class="form-control"
+                                                                        name="fecha_nacimiento" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Telefono</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="telefono" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Parentesco</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="parentesco" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Ocupacion</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="ocupacion" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="">Direccion</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="direccion" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Cerrar</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Registrar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -186,9 +283,9 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{url('/admin/personal/create')}}" method="POST" enctype="multipart/form-data"">
+                <form action="{{url('/admin/estudiantes/nuevos/create')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type=" text" name="tipo" value="" hidden>
+                    <input type="text" name="ppff_id" id="ppff_id" hidden>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -223,7 +320,13 @@
                                             </div>
                                             <select name="rol" id="rol_select" class="form-control">
                                                 <option value="">Seleccione un rol...</option>
-
+                                                @foreach ($roles as $rol)
+                                                    @if ($rol->name == 'ESTUDIANTE')
+                                                        <option value="{{ $rol->name }}" {{$rol->name == "ESTUDIANTE" ? 'selected' : ''}}>{{ $rol->name }}</option>
+                                                    @else
+                                                    @endif
+                                                @endforeach
+                                                <option value="">No existe el rol estudiante</option>
                                             </select>
                                         </div>
                                         @error('rol')
@@ -317,18 +420,19 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="">Profesion</label>
+                                        <label for="">Genero</label>
                                         <div class="input-group mb-12">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">
-                                                    <i class="fas fa-briefcase"></i>
+                                                    <i class="fas fa-users"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="profesion" id="profesion"
-                                                value="{{old('profesion')}}" placeholder="Ingrese profesion..."
-                                                required>
+                                            <select name="genero" id="genero" class="form-control">
+                                                <option value="Masculino">Masculino</option>
+                                                <option value="Femenino">Femenino</option>
+                                            </select>
                                         </div>
-                                        @error('profesion')
+                                        @error('genero')
                                             <small class="color:red">{{$message}}</small>
                                         @enderror
                                     </div>
@@ -565,6 +669,7 @@
             var parentesco = $(this).data('parentesco');
             var ocupacion = $(this).data('ocupacion');
             var direccion = $(this).data('direccion');
+            var id = $(this).data('id');
             $('#nombres').text(nombres);
             $('#apellidos').text(apellidos);
             $('#ci').text(ci);
@@ -573,6 +678,7 @@
             $('#parentesco').text(parentesco);
             $('#ocupacion').text(ocupacion);
             $('#direccion').text(direccion);
+            $('#ppff_id').val(id);
             $('#datos_ppff').css('display', 'block');
             $('#ModalCreate').modal('hide');
         })

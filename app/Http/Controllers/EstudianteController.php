@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Estudiante;
 use App\Models\Ppff;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class EstudianteController extends Controller
 {
@@ -25,8 +28,8 @@ class EstudianteController extends Controller
     {
         //
         $ppffs = Ppff::all();
-
-        return view('admin.estudiantes.nuevos.create', compact('ppffs'));
+        $roles = Role::all();
+        return view('admin.estudiantes.nuevos.create', compact('ppffs', 'roles'));
     }
 
     /**
@@ -35,6 +38,60 @@ class EstudianteController extends Controller
     public function store(Request $request)
     {
         //
+        /*
+        $datos = request()->all();
+        return response()->json($datos);
+        */
+        $request->validate([
+            'ppff_id' => 'required',
+            'rol' => 'required',
+            'nombres' => 'required',
+            'apellidos' => 'required',
+            'ci' => 'required|unique:estudiantes',
+            'fecha_nacimiento' => 'required',
+            'telefono' => 'required',
+            'genero' => 'required',
+            'email' => 'required|unique:users',
+            'direccion' => 'required',
+            'foto' => 'required',
+        ]);
+
+        $usuario = new User();
+        $usuario->name = $request->nombres . ' ' . $request->apellidos;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->ci);
+        $usuario->save();
+
+        $usuario->assignRole($request->rol);
+
+        $estudiante = new Estudiante();
+        $estudiante->usuario_id = $usuario->id;
+        $estudiante->ppff_id = $request->ppff_id;
+        $estudiante->nombres = $request->nombres;
+        $estudiante->apellidos = $request->apellidos;
+        $estudiante->ci = $request->ci;
+        $estudiante->fecha_nacimiento = $request->fecha_nacimiento;
+        $estudiante->telefono = $request->telefono;
+        $estudiante->direccion = $request->direccion;
+        $estudiante->genero = $request->genero;
+        $estudiante->estado = 'Activo';
+
+
+
+        $fotoPath = $request->file('foto');
+        $nombreArchivo = time() . '_' . $fotoPath->getClientOriginalName();
+        $rutaDestino = public_path('uploads/fotos/estudiantes');
+        $fotoPath->move($rutaDestino, $nombreArchivo);
+
+        $estudiante->foto = 'uploads/fotos/estudiantes/' . $nombreArchivo;
+
+
+        $estudiante->save();
+
+        return redirect()->route('admin.estudiantes.index')->with('mensaje', 'Estudiante creado correctamente')->with('icono', 'success');
+
+
+
     }
 
     /**
