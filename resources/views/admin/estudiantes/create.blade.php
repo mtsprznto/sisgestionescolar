@@ -283,7 +283,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{url('/admin/estudiantes/nuevos/create')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('/admin/estudiantes/create/')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="text" name="ppff_id" id="ppff_id" hidden>
                     <div class="row">
@@ -486,7 +486,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <a href="{{url('/admin/personal/')}}" class="btn btn-default"><i
+                                <a href="{{url('/admin/estudiantes')}}" class="btn btn-default"><i
                                         class="fas fa-arrow-left"></i> Cancelar</a>
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i>
                                     Guardar</button>

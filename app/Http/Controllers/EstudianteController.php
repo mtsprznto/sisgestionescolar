@@ -18,7 +18,7 @@ class EstudianteController extends Controller
     {
         //
         $estudiantes = Estudiante::all();
-        return view('admin.estudiantes.nuevos.index', compact('estudiantes'));
+        return view('admin.estudiantes.index', compact('estudiantes'));
     }
 
     /**
@@ -29,7 +29,7 @@ class EstudianteController extends Controller
         //
         $ppffs = Ppff::all();
         $roles = Role::all();
-        return view('admin.estudiantes.nuevos.create', compact('ppffs', 'roles'));
+        return view('admin.estudiantes.create', compact('ppffs', 'roles'));
     }
 
     /**
@@ -97,9 +97,11 @@ class EstudianteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Estudiante $estudiante)
+    public function show($id)
     {
         //
+        $estudiante = Estudiante::with('usuario','ppff')->where('id', $id)->first();
+        return view('admin.estudiantes.show', compact('estudiante'));
     }
 
     /**

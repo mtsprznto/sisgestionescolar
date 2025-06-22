@@ -376,19 +376,8 @@ return [
             'text' => 'Estudiantes',
             'icon' => 'fas fa-fw fa-user-graduate',
             'classes' => 'bg-blue text-white',
-            'submenu' => [
-                [
-                    'text' => 'Nuevos',
-                    'url' => 'admin/estudiantes/nuevos',
-                    'classes' => 'bg-white text-black',
-
-                ],
-                [
-                    'text' => 'Matriculacion',
-                    'url' => 'admin/estudiantes/matriculacion',
-                    'classes' => 'bg-white text-black'
-                ]
-            ]
+            'url' => 'admin/estudiantes',
+            
         ],
 
     ],

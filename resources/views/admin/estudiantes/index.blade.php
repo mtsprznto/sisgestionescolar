@@ -16,7 +16,7 @@
                 <h3 class="card-title">Estudiantes registrados</h3>
 
                 <div class="card-tools">
-                    <a href="{{url('/admin/estudiantes/nuevos/create')}}" class="btn btn-primary">Crear nuevo</a>
+                    <a href="{{url('/admin/estudiantes/create')}}" class="btn btn-primary">Crear nuevo</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -25,7 +25,13 @@
                     <thead>
                         <tr>
                             <th>Nro</th>
-                            
+                            <th>Estudiantes</th>
+                            <th>Carnet de identidad</th>
+                            <th>Fecha de nacimiento</th>
+                            <th>Telefono</th>
+                            <th>Genero</th>
+                            <th>Correo</th>
+                            <th>Foto</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -35,17 +41,18 @@
 
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            
+                            <td>{{$estudiante->apellidos}} {{$estudiante->nombres}}</td>
+                            <td>{{$estudiante->ci}}</td>
+                            <td>{{$estudiante->fecha_nacimiento}}</td>
+                            <td>{{$estudiante->telefono}}</td>
+                            <td>{{$estudiante->genero}}</td>
+                            <td>{{$estudiante->usuario->email}}</td>
                             <td>
                                 <img src="{{ url($estudiante->foto) }}" width="100px" alt="foto">
                             </td>
                             <td>
                                 <div class="row">
-
-                                    <a href="{{url('/admin/estudiantes/'.$estudiante->id.'/formaciones')}}" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-tasks"></i> Formación
-                                    </a>
-                                    <a href="{{url('/admin/estudiantes/show/'.$estudiante->id)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+                                    <a href="{{url('/admin/estudiantes/'.$estudiante->id)}}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
                                     <a href="{{url('/admin/estudiantes/'.$estudiante->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
 
                                     <form action="{{ url('/admin/estudiantes/'.$estudiante->id) }}" method="POST" id="miFormulario{{ $estudiante->id }}">
