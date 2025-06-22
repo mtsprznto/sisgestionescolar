@@ -100,16 +100,21 @@ class EstudianteController extends Controller
     public function show($id)
     {
         //
-        $estudiante = Estudiante::with('usuario','ppff')->where('id', $id)->first();
+        $estudiante = Estudiante::with('usuario', 'ppff')->where('id', $id)->first();
         return view('admin.estudiantes.show', compact('estudiante'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Estudiante $estudiante)
+    public function edit($id)
     {
         //
+        $estudiante = Estudiante::with('usuario', 'ppff')->where('id', $id)->first();
+        $roles = Role::all();
+
+        return view('admin.estudiantes.edit', compact('estudiante', 'roles'));
+
     }
 
     /**
